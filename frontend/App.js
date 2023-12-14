@@ -1,5 +1,5 @@
 import {NavigationContainer} from '@react-navigation/native'
-import {createStackNavigator} from '@react-navigation/stack'
+import {Header, createStackNavigator} from '@react-navigation/stack'
 import { StyleSheet } from 'react-native';
 import { Home } from './routes/home';
 import { Login } from './routes/login';
@@ -10,9 +10,9 @@ export default function App() {
   return (
     <NavigationContainer>
      <stack.Navigator>
-      <stack.Screen name='signin' component={Signin}/>
-      <stack.Screen name='login' component={Login}/>
-      <stack.Screen name='home' component={Home}/>
+      <stack.Screen name='login'  options={{headerShown: false}} component={Login}/>
+      <stack.Screen name='signin' options={{headerShown: false}} component={Signin}/>
+      <stack.Screen name='home'   options={{headerShown: false}} component={Home}/>
      </stack.Navigator>
     </NavigationContainer>
   );
