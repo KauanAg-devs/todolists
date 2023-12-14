@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import {todoModel, deletedTodoModel} from "../models/todoListModel";
+import { userModel } from "../models/userModel";
 
 
 export default class TodoRouterController {
@@ -10,8 +11,10 @@ export default class TodoRouterController {
     }
 
     public async postTodoHandler(req: Request, res: Response){
-       const {todoDescription, todoName} = req.body
-       const createdTodo = await todoModel.create({todoDescription, todoName})
+       const {todoDescription, todoName, _id} = req.body
+       const foundUser = await userModel.findById(_id);
+       if(foundUser?._id !== _id) return res.status(401).json({message: `user not found`} )
+       const createdTodo = await todoModel.create({todoDescription, todoName, _id: foundUser?._id})
        res.status(201).json({message: createdTodo})
     }
 
